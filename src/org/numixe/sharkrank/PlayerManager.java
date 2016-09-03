@@ -1,4 +1,4 @@
-/**package org.numixe.sharkrank;
+package org.numixe.sharkrank;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -119,4 +119,4 @@ public class PlayerManager {
 		
 		bw.close();
 	}
-}**/
+}

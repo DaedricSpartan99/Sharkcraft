@@ -15,7 +15,6 @@ public class Main extends JavaPlugin {
 	public boolean onCommand (CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
 		PlayerManager u = new PlayerManager(p.getName());
-		
 		if(p.getName().equalsIgnoreCase("shkill")) {
 			      try {
 					p.sendMessage("§c§lTEST >>§r" + "§a" + u + "ha " + u.loadKills());
