@@ -8,8 +8,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener {
 	
-	public void onEnable() {}
-	public void onDisable() {}
+	public void onEnable() {
+		
+		
+	}
+	public void onDisable() {
+		
+		
+	}
 	
 	public boolean onCommand (CommandSender sender, Command cmd, String label, String[] args) {
 		
