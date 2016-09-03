@@ -12,10 +12,12 @@ public class Main extends JavaPlugin {
 	public void onDisable() {}
 	
 	public boolean onCommand (CommandSender sender, Command cmd, String label, String[] args) {
+		
+		
 		Player p = (Player) sender;
 		if(p.getName().equalsIgnoreCase("lol")) {
 			File k = new File("kills.yml");
-			if (p.getKillCount() = 0) {
+			if (p.getKillCount() == 0) {
 				
 			}
 		}
