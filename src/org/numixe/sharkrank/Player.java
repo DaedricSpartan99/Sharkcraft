@@ -1,12 +1,16 @@
 package org.numixe.sharkrank;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
@@ -44,7 +48,7 @@ public class Player {
 		this.name = name;
 	}
 	
-	public boolean loadKill() throws IOException {
+	public boolean loadKills() throws IOException {
 		
 		String line;
 		
@@ -71,14 +75,14 @@ public class Player {
 		return false;
 	}
 	
+	
 	public void writeKill() throws IOException {
-		
-		boolean name_found = false;
-		int nline = 0;
 		
 		String newline = name + ": " + String.valueOf(kill_count);
 		
 		// check for existing name
+		
+		List<String> lines = new ArrayList<String>();
 		
 		String line;
 		
@@ -88,28 +92,31 @@ public class Player {
 		
 		while ((line = br.readLine()) != null) {
 
-			if (line.startsWith(name)) {
+			if (!line.startsWith(name)) {
 				
-				// name found
-				
-				br.close();
-				name_found = true;
-				break;
+				lines.add(line);
 			}
-			
-			nline++;
 		}
 		
 		// no name found
 		
 		br.close();
-		
-		
-		
-		if (name_found) {
 			
-			FileWriter writer = new FileWriter("file.txt", false);
-	        writer.write("");
+		lines.add(newline);
+		
+		File kll = new File("kills.yml");	// delete old file
+		kll.delete();
+		kll.createNewFile();			// create new one
+		
+		FileWriter writer = new FileWriter("kills.yml", false);
+		BufferedWriter bw = new BufferedWriter(writer);
+        
+		for (String l : lines) {
+			
+			bw.write(l);
+			bw.newLine();
 		}
+		
+		bw.close();
 	}
 }
