@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,8 @@ public class PlayerManager {
 
 	String name;
 	int kill_count;
+	
+	static final String KILLS_FILE = "/kills.yml";
 	
 	public PlayerManager(String name) {
 		
@@ -68,29 +72,38 @@ public class PlayerManager {
 	 * @throws IOException
 	 */
 	
-	public boolean loadKills() throws IOException {
+	public boolean loadKills() {
 		
 		String line;
 		
-		InputStream fis = new FileInputStream("kills.yml");
+		InputStream fis = getClass().getResourceAsStream(KILLS_FILE);
 		InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
 		BufferedReader br = new BufferedReader(isr);
 		
-		while ((line = br.readLine()) != null) {
+		try {
+		
+			while ((line = br.readLine()) != null) {
 
-			if (line.startsWith(name)) {
+				if (line.startsWith(name)) {
 				
-				// name found
+					// name found
 				
-				kill_count = Integer.parseInt(line.split(":")[1]);
-				br.close();
-				return true;
+					kill_count = Integer.parseInt(line.split(":")[1]);
+					br.close();
+					return true;
+				}
 			}
+		
+			// no name found
+		
+			br.close();
+			
+		} catch (IOException e) {
+			
+			System.err.print("In PlayerManager.loadkills() :");
+			e.printStackTrace();
 		}
 		
-		// no name found
-		
-		br.close();
 		kill_count = 0;
 		return false;
 	}
@@ -98,9 +111,10 @@ public class PlayerManager {
 	/**
 	 * Sovrascrive la kill_count relativa al giocatore nel file kills.yml
 	 * @throws IOException
+	 * @throws URISyntaxException 
 	 */
 	
-	public void writeKill() throws IOException {
+	public void writeKills() {
 		
 		String newline = name + ": " + String.valueOf(kill_count);
 		
@@ -110,43 +124,79 @@ public class PlayerManager {
 		
 		String line;
 		
-		File kll = new File("kills.yml");
+		File kll;
 		
-		if (!kll.exists()) {
+		try {
 			
-			kll.createNewFile();
+			kll = new File(getClass().getResource(KILLS_FILE).toURI());
+			
+		} catch (URISyntaxException e) {
+			
+			System.err.print("In PlayerManager.writeKills() :");
+			e.printStackTrace();
+			return;
 		}
 		
-		InputStream fis = new FileInputStream("kills.yml");
+		InputStream fis;
+		
+		try {
+			
+			fis = new FileInputStream(kll);
+			
+		} catch (FileNotFoundException e) {
+			
+			System.err.print("In PlayerManager.writeKills() :");
+			e.printStackTrace();
+			return;
+		}
+		
 		InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
 		BufferedReader br = new BufferedReader(isr);
 		
-		while ((line = br.readLine()) != null) {
+		try {
+		
+			while ((line = br.readLine()) != null) {
 
-			if (!line.startsWith(name)) {
+				if (!line.startsWith(name)) {
 				
-				lines.add(line);
+					lines.add(line);
+				}
 			}
+		
+			// no name found
+		
+			br.close();
+			
+		} catch (IOException e) {
+			
+			System.err.print("In PlayerManager.writeKills() :");
+			e.printStackTrace();
+			return;
 		}
-		
-		// no name found
-		
-		br.close();
 			
 		lines.add(newline);
 		
-		kll.delete();
-		kll.createNewFile();			// create new one
+		try {
 		
-		FileWriter writer = new FileWriter("kills.yml", false);
-		BufferedWriter bw = new BufferedWriter(writer);
+			kll.delete();
+			kll.createNewFile();			// create new one
+		
+			FileWriter writer = new FileWriter(kll, false);
+			BufferedWriter bw = new BufferedWriter(writer);
         
-		for (String l : lines) {
+			for (String l : lines) {
 			
-			bw.write(l);
-			bw.newLine();
-		}
+				bw.write(l);
+				bw.newLine();
+			}
+			
+			bw.close();
 		
-		bw.close();
+		} catch (IOException e) {
+			
+			System.err.print("In PlayerManager.writeKills() :");
+			e.printStackTrace();
+		}
 	}
+	
 }

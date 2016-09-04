@@ -17,13 +17,7 @@ public class Main extends JavaPlugin {
 		Player p = (Player) sender;
 		PlayerManager u = new PlayerManager(p.getName());
 		
-		try {
-			u.loadKills();		// carica dal file la kill_count relativa al giocatore
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
+		u.loadKills();		// carica dal file la kill_count relativa al giocatore
 		
 		if(p.getName().equalsIgnoreCase("shkill")) {
 			
