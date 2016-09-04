@@ -1,4 +1,4 @@
-package org.numixe.sharkrank;
+package it.sharkcraft.sharkrank;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

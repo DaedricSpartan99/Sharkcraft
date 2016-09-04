@@ -1,7 +1,7 @@
 name: SharkRank
 version: 0.2.0
-Author: Numixe
-main: org.numixe.sharkrank.Main
+Author: Numixe & GiantRaven
+main: it.sharkcraft.sharkrank.Main
 commands:
         shkill:
           description: View Your Kill
