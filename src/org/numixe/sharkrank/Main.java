@@ -22,7 +22,7 @@ public void onDisable()
   {
 	Bukkit.getServer().getConsoleSender()
 	.sendMessage(ChatColor.GRAY + "[" + ChatColor.RED + ChatColor.BOLD + "!" 
-	+ ChatColor.GRAY + "]" + "SharkRank Disabled");
+	+ ChatColor.GRAY + "] " + "SharkRank Disabled");
   }
   
   public boolean onCommand(CommandSender sender, Command cmd, String CommandLabel, String[] args)
