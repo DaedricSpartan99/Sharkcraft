@@ -135,6 +135,28 @@ public class PlayerManager {
 			System.err.print("In PlayerManager.writeKills() :");
 			e.printStackTrace();
 			return;
+			
+		} catch (NullPointerException e) {
+			
+			File f = new File("./plugin.yml");
+
+			try {
+				
+				f.createNewFile();	// generate new kills.yml
+				kll = new File(getClass().getResource(KILLS_FILE).toURI());
+				
+			} catch (IOException e1) {
+				
+				System.err.print("In PlayerManager.writeKills() :");
+				e1.printStackTrace();
+				return;
+				
+			} catch (URISyntaxException e1) {
+				
+				System.err.print("In PlayerManager.writeKills() :");
+				e1.printStackTrace();
+				return;
+			}
 		}
 		
 		InputStream fis;
