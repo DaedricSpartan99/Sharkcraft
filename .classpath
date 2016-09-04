@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="C:/Users/utente/Desktop/spigotb.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="D:/Documenti/java_proj/Sharkcraft/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar"/>
+	<classpathentry kind="lib" path="/home/lele/Documenti/JavaFiles/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

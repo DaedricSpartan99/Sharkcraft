@@ -111,9 +111,9 @@ public class PlayerManager {
 		FileWriter writer = new FileWriter("kills.yml", false);
 		BufferedWriter bw = new BufferedWriter(writer);
         
-		for (String l : lines) {
+		for (int i = 0; i < lines.size(); i++) {
 			
-			bw.write(l);
+			bw.write(lines.get(i));
 			bw.newLine();
 		}
 		
