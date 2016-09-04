@@ -86,6 +86,13 @@ public class PlayerManager {
 		
 		String line;
 		
+		File kll = new File("kills.yml");
+		
+		if (!kll.exists()) {
+			
+			kll.createNewFile();
+		}
+		
 		InputStream fis = new FileInputStream("kills.yml");
 		InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
 		BufferedReader br = new BufferedReader(isr);
@@ -104,16 +111,15 @@ public class PlayerManager {
 			
 		lines.add(newline);
 		
-		File kll = new File("kills.yml");	// delete old file
 		kll.delete();
 		kll.createNewFile();			// create new one
 		
 		FileWriter writer = new FileWriter("kills.yml", false);
 		BufferedWriter bw = new BufferedWriter(writer);
         
-		for (int i = 0; i < lines.size(); i++) {
+		for (String l : lines) {
 			
-			bw.write(lines.get(i));
+			bw.write(l);
 			bw.newLine();
 		}
 		
