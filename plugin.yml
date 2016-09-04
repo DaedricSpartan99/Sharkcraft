@@ -1,7 +1,7 @@
 name: SharkRank
+version: 0.1.0
+Author: Numixe
 main: org.numixe.sharkrank.Main
-version: 0.10.0
-description: AutoRank Extends
 commands:
-      shkill:
-        description: View Your Kill.
+        shkill:
+          description: Reload Config
