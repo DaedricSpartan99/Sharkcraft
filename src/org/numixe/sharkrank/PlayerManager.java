@@ -138,7 +138,7 @@ public class PlayerManager {
 			
 		} catch (NullPointerException e) {
 			
-			File f = new File("./plugin.yml");
+			File f = new File("./kills.yml");
 
 			try {
 				
