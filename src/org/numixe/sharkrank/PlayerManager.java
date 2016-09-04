@@ -22,6 +22,10 @@ public class PlayerManager {
 		this.name = name;
 		kill_count = 0;
 	}
+	
+	/**
+	 * Incrementa la kill_count del giocatore
+	 */
 
 	public void incKillCount() {
 		
@@ -33,10 +37,20 @@ public class PlayerManager {
 		this.kill_count = kill_count;
 	}
 	
-	public int getKillCount() {
+	/**
+	 * Restituisce la kill_count del giocatore
+	 * @return
+	 */
+	
+	public int getKillCount() {	
 		
 		return kill_count;
 	}
+	
+	/**
+	 * Restituisce il nome del giocatore
+	 * @return
+	 */
 	
 	public String getName() {
 		
@@ -47,6 +61,12 @@ public class PlayerManager {
 		
 		this.name = name;
 	}
+	
+	/**
+	 * Carica dal file kills.yml la kill_count relativa al giocatore
+	 * @return
+	 * @throws IOException
+	 */
 	
 	public boolean loadKills() throws IOException {
 		
@@ -75,6 +95,10 @@ public class PlayerManager {
 		return false;
 	}
 	
+	/**
+	 * Sovrascrive la kill_count relativa al giocatore nel file kills.yml
+	 * @throws IOException
+	 */
 	
 	public void writeKill() throws IOException {
 		

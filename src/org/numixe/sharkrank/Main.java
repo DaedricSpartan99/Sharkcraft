@@ -13,15 +13,26 @@ public class Main extends JavaPlugin {
 	public void onDisable() {}
 	
 	public boolean onCommand (CommandSender sender, Command cmd, String label, String[] args) {
+		
 		Player p = (Player) sender;
 		PlayerManager u = new PlayerManager(p.getName());
+		
+		try {
+			u.loadKills();		// carica dal file la kill_count relativa al giocatore
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
 		if(p.getName().equalsIgnoreCase("shkill")) {
-			      try {
-					p.sendMessage("§c§lTEST >>§r" + "§a" + u + "ha " + u.loadKills());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			  }		
+			
+				p.sendMessage("ï¿½cï¿½lTEST >>ï¿½r" + "ï¿½a" + u.getName() + "ha " + u.getKillCount());
+				
+				// stampa il nome del giocatore + la killcount
+				
+		}		
+		
 		return false;
 	}
 	
