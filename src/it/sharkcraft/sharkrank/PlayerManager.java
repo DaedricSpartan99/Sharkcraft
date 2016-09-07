@@ -3,16 +3,13 @@ package it.sharkcraft.sharkrank;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.bukkit.entity.Player;
 
 public class PlayerManager implements DataStream {
 
@@ -32,7 +29,7 @@ public class PlayerManager implements DataStream {
 		
 		this.name = in.getName();
 		kills = 0;
-		death = 0;
+		deaths = 0;
 		money = 0;
 	}
 	
@@ -40,7 +37,7 @@ public class PlayerManager implements DataStream {
 		
 		this.name = name;
 		kills = 0;
-		death = 0;
+		deaths = 0;
 		money = 0;
 	}
 	
@@ -55,7 +52,7 @@ public class PlayerManager implements DataStream {
 	
 	public void incDeaths() {
 		
-		death++;
+		deaths++;
 	}
 	
 	public void setKills(int kills) {
@@ -63,13 +60,13 @@ public class PlayerManager implements DataStream {
 		this.kills = kills;
 	}
 	
-	public int setDeaths(int deaths) {
+	public void setDeaths(int deaths) {
 		
 		this.deaths = deaths;
 	}
 	
 	/**
-	 * Restituisce la kill_count del giocatore
+	 * Restituisce la kill count del giocatore
 	 * @return
 	 */
 	
@@ -103,13 +100,7 @@ public class PlayerManager implements DataStream {
 		return PLAYERS_DIR + name + PLAYERS_EXT;
     }
 	
-	/**
-	 * Carica dal file kills.yml la kill_count relativa al giocatore
-	 * @return
-	 * @throws IOException
-	 */
-	
-	@Override
+
 	public void loadData() {
 		
 		InputStream fis = getClass().getResourceAsStream(genURI());
@@ -122,15 +113,15 @@ public class PlayerManager implements DataStream {
 		
 			while ((line = br.readLine()) != null) {
 
-			    if (line.startsWith(DATA_KILLS) {
+			    if (line.startsWith(DATA_KILLS)) {
 					
 					kills = Integer.parseInt(line.split(SEP)[1]);
 					
-				} else if (line.startsWith(DATA_DEATHS) {
+				} else if (line.startsWith(DATA_DEATHS)) {
 					
 					deaths = Integer.parseInt(line.split(SEP)[1]);
 					
-				} else if (line.startsWith(DATA_MONEY) {
+				} else if (line.startsWith(DATA_MONEY)) {
 					
 					money = Double.parseDouble(line.split(SEP)[1]);
 				}
@@ -145,7 +136,6 @@ public class PlayerManager implements DataStream {
 		}
 	}
 	
-	@Override
 	public void writeData() {
 		
 		File file = new File("." + genURI());
@@ -155,29 +145,49 @@ public class PlayerManager implements DataStream {
 			file.delete();
 		}
 		
-		file.createNewFile();
+		FileWriter writer;
 		
-		FileWriter writer = new FileWriter(file, false);
+		try {
+			
+			file.createNewFile();
+			writer = new FileWriter(file, false);
+			
+		} catch (IOException e1) {
+			
+			e1.printStackTrace();
+			return;
+		}
+		
 		BufferedWriter bw = new BufferedWriter(writer);
 		
 		try {
 			
 			bw.write(DATA_KILLS + SEP + String.valueOf(kills));
-			bw.writeNewLine();
+			bw.newLine();
 			
 			bw.write(DATA_DEATHS + SEP + String.valueOf(deaths));
-			bw.writeNewLine();
+			bw.newLine();
 			
 			bw.write(DATA_MONEY + SEP + String.valueOf(money));
-			bw.writeNewLine();
+			bw.newLine();
 			
 			bw.close();
 			
 		} catch (IOException e) {
 			
 			System.err.print("In PlayerManager.writeData() :");
-			e1.printStackTrace();
+			e.printStackTrace();
 			return;
+		}
+	}
+	
+	public static void adjustResources() {
+		
+		File dir = new File("." + PLAYERS_DIR);
+		
+		if (!dir.exists()) {
+			
+			dir.mkdir();
 		}
 	}
 	

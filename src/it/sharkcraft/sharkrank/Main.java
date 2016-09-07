@@ -12,6 +12,8 @@ public class Main extends JavaPlugin
   
   public void onEnable()
   {
+	  PlayerManager.adjustResources();	// creates players directory if doesn't exist
+	  
 	Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 	Bukkit.getServer().getConsoleSender()
 	.sendMessage(ChatColor.GRAY + "[" + ChatColor.RED + ChatColor.BOLD + "!" 
@@ -29,16 +31,18 @@ public void onDisable()
   public boolean onCommand(CommandSender sender, Command cmd, String CommandLabel, String[] args)
   {
     Player p = (Player) sender;
-	PlayerManager u = new PlayerManager(p.getName());
+	PlayerManager u = new PlayerManager(p);
+	p.loadData();
+	
     if (cmd.getName().equalsIgnoreCase("shkill")) {
     	if (args.length == 1) {
     		// Mostra KillStats Altrui
     	  if (args[0].equals(args[0])) {
-    	    	p.sendMessage("§8[§c§l!§8] §9SharkRank> " + "§a" + args[0] + " §7ha §a" + u.kill_count + " §7kills.");
+    	    	p.sendMessage("ï¿½8[ï¿½cï¿½l!ï¿½8] ï¿½9SharkRank> " + "ï¿½a" + args[0] + " ï¿½7ha ï¿½a" + u.getKills() + " ï¿½7kills.");
     	  }
     	  // Mostra le tue KillStats
       } else if (args.length == 0) {
-      	p.sendMessage("§8[§c§l!§8] §9SharkRank> " + "§a" + u.getName() + " §7ha §a" + u.kill_count + " §7kills.");
+      	p.sendMessage("ï¿½8[ï¿½cï¿½l!ï¿½8] ï¿½9SharkRank> " + "ï¿½a" + u.getName() + " ï¿½7ha ï¿½a" + u.getKills() + " ï¿½7kills.");
 
       }
     
