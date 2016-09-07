@@ -28,24 +28,23 @@ public void onDisable()
 	+ ChatColor.GRAY + "] " + "SharkRank Disabled");
   }
   
-  public boolean onCommand(CommandSender sender, Command cmd, String CommandLabel, String[] args)
-  {
-    Player p = (Player) sender;
-	PlayerManager u = new PlayerManager(p);
-	p.loadData();
+  public boolean onCommand(CommandSender sender, Command cmd, String CommandLabel, String[] args)	{
+	  
+	Player p = (Player) sender;
 	
     if (cmd.getName().equalsIgnoreCase("shkill")) {
-    	if (args.length == 1) {
-    		// Mostra KillStats Altrui
-    	  if (args[0].equals(args[0])) {
-    	    	p.sendMessage("�8[�c�l!�8] �9SharkRank> " + "�a" + args[0] + " �7ha �a" + u.getKills() + " �7kills.");
-    	  }
-    	  // Mostra le tue KillStats
-      } else if (args.length == 0) {
-      	p.sendMessage("�8[�c�l!�8] �9SharkRank> " + "�a" + u.getName() + " �7ha �a" + u.getKills() + " �7kills.");
-
-      }
+    	
+    	Commands.shkill(p, args);	// process shkill
+    	
+    } else if (cmd.getName().equalsIgnoreCase("shdeath")) {
+    	
+    	Commands.shdeath(p, args);	// process shdeath
+    	
+    } else if (cmd.getName().equalsIgnoreCase("money")) {
+    	
+    	Commands.money(p, args);
+    }
     
-  } return false;
+    return false;
   }
 }

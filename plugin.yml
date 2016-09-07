@@ -4,4 +4,8 @@ Author: Numixe & GiantRaven
 main: it.sharkcraft.sharkrank.Main
 commands:
         shkill:
-          description: View Your Kill
+          description: View Your Kills
+	shdeath:
+	  description: View Your Deaths
+	money:
+	  description: View Your Amount of Money

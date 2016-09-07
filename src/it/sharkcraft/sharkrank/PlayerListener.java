@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener {
-	
+
 	@SuppressWarnings("unused")
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {

@@ -13,17 +13,16 @@ import org.bukkit.entity.Player;
 
 public class PlayerManager implements DataStream {
 
-	String name;
-	int kills, deaths;
-	double money;
+	private String name;
+	private int kills, deaths;
+	private double money;
 	
-	static final String PLAYERS_DIR = "/players/";
-	static final String PLAYERS_EXT = ".pl";
-	static final String DATA_NAME = "name";
-	static final String DATA_KILLS = "kills";
-	static final String DATA_DEATHS = "death";
-	static final String DATA_MONEY = "money";
-	static final String SEP = ":";
+	private static final String PLAYERS_DIR = "/players/";
+	private static final String PLAYERS_EXT = ".pl";
+	private static final String DATA_KILLS = "kills";
+	private static final String DATA_DEATHS = "death";
+	private static final String DATA_MONEY = "money";
+	private static final String SEP = ":";
 	
 	public PlayerManager(Player in) {
 		
@@ -84,6 +83,26 @@ public class PlayerManager implements DataStream {
 	 * Restituisce il nome del giocatore
 	 * @return
 	 */
+	
+	public void setMoney(double money) {
+		
+		this.money = money;
+	}
+	
+	public void incMoney(double quantity) {
+		
+		money += quantity;
+	}
+	
+	public void decMoney(double quantity) {
+		
+		money -= quantity;
+	}
+	
+	public double getMoney() {
+		
+		return money;
+	}
 	
 	public String getName() {
 		
